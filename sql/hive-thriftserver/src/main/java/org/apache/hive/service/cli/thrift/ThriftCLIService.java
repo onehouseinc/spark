@@ -83,6 +83,16 @@ public abstract class ThriftCLIService extends AbstractService implements TCLISe
     public SessionHandle getSessionHandle() {
       return sessionHandle;
     }
+
+    @Override
+    public <T> T unwrap(Class<T> aClass) {
+      return null;
+    }
+
+    @Override
+    public boolean isWrapperFor(Class<?> aClass) {
+      return false;
+    }
   }
 
   public ThriftCLIService(CLIService service, String serviceName) {
@@ -451,11 +461,11 @@ public abstract class ThriftCLIService extends AbstractService implements TCLISe
       Map<String, String> confOverlay = req.getConfOverlay();
       Boolean runAsync = req.isRunAsync();
       long queryTimeout = req.getQueryTimeout();
-      OperationHandle operationHandle = runAsync ?
-          cliService.executeStatementAsync(sessionHandle, statement, confOverlay, queryTimeout)
+      OperationHandle operationHandle = runAsync
+          ? cliService.executeStatementAsync(sessionHandle, statement, confOverlay, queryTimeout)
           : cliService.executeStatement(sessionHandle, statement, confOverlay, queryTimeout);
-          resp.setOperationHandle(operationHandle.toTOperationHandle());
-          resp.setStatus(OK_STATUS);
+      resp.setOperationHandle(operationHandle.toTOperationHandle());
+      resp.setStatus(OK_STATUS);
     } catch (Exception e) {
       LOG.warn("Error executing statement: ", e);
       resp.setStatus(HiveSQLException.toTStatus(e));
