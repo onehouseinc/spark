@@ -130,6 +130,11 @@
       <artifactId>hive-llap-client</artifactId>
       <scope>${hive.llap.scope}</scope>
     </dependency>
+    <dependency>
+      <groupId>com.amazonaws.glue</groupId>
+      <artifactId>aws-glue-datacatalog-spark-client</artifactId>
+      <version>${aws-glue.version}</version>
+    </dependency>
     <!-- hive-serde already depends on avro, but this brings in customized config of avro deps from parent -->
     <dependency>
       <groupId>org.apache.avro</groupId>
