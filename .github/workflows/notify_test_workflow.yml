@@ -23,9 +23,9 @@
 # So, the name was changed to make sense in that context too.
 # See also https://github.community/t/specify-check-suite-when-creating-a-checkrun/118380/10
 name: On pull request update
-on:
-  pull_request_target:
-    types: [opened, reopened, synchronize]
+#on:
+#  pull_request_target:
+#    types: [opened, reopened, synchronize]
 
 jobs:
   notify:
