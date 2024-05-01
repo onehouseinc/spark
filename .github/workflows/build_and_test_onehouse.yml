@@ -71,10 +71,10 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-        aws-region: us-west-2
-        role-to-assume: arn:aws:iam::194159489498:role/GithubActionsPublishHudi-RepositoryPublisherRole-10H7ABJVFNSQ9
-        role-session-name: HudiPublishSession
-        role-duration-seconds: 900
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::194159489498:role/GithubActionsInstallHudiForGatewayC-RepositoryRole-182NI133SRXP0
+          role-session-name: HudiInstallSession
+          role-duration-seconds: 900
       - name: Set Env
         run: echo "CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain onehouse --domain-owner 194159489498 --query authorizationToken --output text)" >> $GITHUB_ENV
       - name: Sync the current branch with the latest in Apache Spark
