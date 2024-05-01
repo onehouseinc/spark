@@ -132,8 +132,8 @@
     <hive.group>org.apache.hive</hive.group>
     <hive.classifier>core</hive.classifier>
     <!-- Version used in Maven Hive dependency -->
-    <hive.version>2.3.10-onehouse-0.100</hive.version>
-    <hive23.version>2.3.10-onehouse-0.100</hive23.version>
+    <hive.version>2.3.10-onehouse-0.01</hive.version>
+    <hive23.version>2.3.10-onehouse-0.01</hive23.version>
     <hudi.version>0.14.1</hudi.version>
     <!-- Version used for internal directory structure -->
     <hive.version.short>2.3</hive.version.short>
@@ -162,7 +162,7 @@
     <!-- the producer is used in tests -->
     <aws.kinesis.producer.version>0.12.8</aws.kinesis.producer.version>
     <!-- Patched AWS Glue catalog -->
-    <aws.glue.catalog.version>3.4.0-onehouse-0.100</aws.glue.catalog.version>
+    <aws.glue.catalog.version>3.4.0-onehouse-0.01</aws.glue.catalog.version>
     <gcs-connector.version>hadoop3-2.2.11</gcs-connector.version>
     <!--  org.apache.httpcomponents/httpclient-->
     <commons.httpclient.version>4.5.14</commons.httpclient.version>
