@@ -135,6 +135,7 @@
     <hive.version>2.3.10-onehouse-0.100</hive.version>
     <hive23.version>2.3.10-onehouse-0.100</hive23.version>
     <aws-glue.version>3.4.0-onehouse-0.100</aws-glue.version>
+    <hudi.version>0.14.1</hudi.version>
     <!-- Version used for internal directory structure -->
     <hive.version.short>2.3</hive.version.short>
     <!-- note that this should be compatible with Kafka brokers version 0.10 and up -->
@@ -349,6 +350,28 @@
       <id>central</id>
       <name>Maven Repository</name>
       <url>https://repo.maven.apache.org/maven2</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>codeartifact</id>
+      <name>codeartifact</name>
+      <url>https://onehouse-194159489498.d.codeartifact.us-west-2.amazonaws.com/maven/onehouse-internal/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>confluent</id>
+      <name>confluent</name>
+      <url>https://packages.confluent.io/maven/</url>
       <releases>
         <enabled>true</enabled>
       </releases>

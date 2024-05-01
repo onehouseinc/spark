@@ -129,6 +129,24 @@
 
   <profiles>
     <profile>
+      <id>onehouse</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.apache.hudi</groupId>
+          <artifactId>hudi-spark3.4-bundle_2.12</artifactId>
+          <version>${hudi.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.hadoop</groupId>
+          <artifactId>hadoop-aws</artifactId>
+          <version>${hadoop.version}</version>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
       <id>yarn</id>
       <dependencies>
         <dependency>
