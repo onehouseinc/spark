@@ -25,7 +25,7 @@ jobs:
   publish-jar:
     if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, '/push-image')
     needs: generate-version
-    uses: ./.github/workflows/publish-jar.yaml
+    uses: ./.github/workflows/build-image.yml
     secrets: inherit
     with:
       version: ${{needs.generate-version.outputs.version}}

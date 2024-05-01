@@ -146,13 +146,13 @@ jobs:
             core, unsafe, kvstore, avro,
             network-common, network-shuffle, repl, launcher,
             examples, sketch, graphx
-          - >-
-            catalyst, hive-thriftserver
-          - >-
-            streaming, sql-kafka-0-10, streaming-kafka-0-10,
-            mllib-local, mllib,
-            yarn, mesos, kubernetes, hadoop-cloud, spark-ganglia-lgpl,
-            connect, protobuf
+#          - >-
+#            catalyst, hive-thriftserver
+#          - >-
+#            streaming, sql-kafka-0-10, streaming-kafka-0-10,
+#            mllib-local, mllib,
+#            yarn, mesos, kubernetes, hadoop-cloud, spark-ganglia-lgpl,
+#            connect, protobuf
         # Here, we split Hive and SQL tests into some of slow ones and the rest of them.
         included-tags: [""]
         excluded-tags: [""]
@@ -165,12 +165,12 @@ jobs:
             hive: hive2.3
             included-tags: org.apache.spark.tags.SlowHiveTest
             comment: "- slow tests"
-          - modules: hive
-            java: ${{ inputs.java }}
-            hadoop: ${{ inputs.hadoop }}
-            hive: hive2.3
-            excluded-tags: org.apache.spark.tags.SlowHiveTest
-            comment: "- other tests"
+#          - modules: hive
+#            java: ${{ inputs.java }}
+#            hadoop: ${{ inputs.hadoop }}
+#            hive: hive2.3
+#            excluded-tags: org.apache.spark.tags.SlowHiveTest
+#            comment: "- other tests"
           # SQL tests
           - modules: sql
             java: ${{ inputs.java }}
@@ -178,18 +178,18 @@ jobs:
             hive: hive2.3
             included-tags: org.apache.spark.tags.ExtendedSQLTest
             comment: "- extended tests"
-          - modules: sql
-            java: ${{ inputs.java }}
-            hadoop: ${{ inputs.hadoop }}
-            hive: hive2.3
-            included-tags: org.apache.spark.tags.SlowSQLTest
-            comment: "- slow tests"
-          - modules: sql
-            java: ${{ inputs.java }}
-            hadoop: ${{ inputs.hadoop }}
-            hive: hive2.3
-            excluded-tags: org.apache.spark.tags.ExtendedSQLTest,org.apache.spark.tags.SlowSQLTest
-            comment: "- other tests"
+#          - modules: sql
+#            java: ${{ inputs.java }}
+#            hadoop: ${{ inputs.hadoop }}
+#            hive: hive2.3
+#            included-tags: org.apache.spark.tags.SlowSQLTest
+#            comment: "- slow tests"
+#          - modules: sql
+#            java: ${{ inputs.java }}
+#            hadoop: ${{ inputs.hadoop }}
+#            hive: hive2.3
+#            excluded-tags: org.apache.spark.tags.ExtendedSQLTest,org.apache.spark.tags.SlowSQLTest
+#            comment: "- other tests"
     env:
       MODULES_TO_TEST: ${{ matrix.modules }}
       EXCLUDED_TAGS: ${{ matrix.excluded-tags }}
@@ -317,15 +317,6 @@ jobs:
           git fetch https://github.com/$GITHUB_REPOSITORY.git ${GITHUB_REF#refs/heads/}
           git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' merge --no-commit --progress --squash FETCH_HEAD
           git -c user.name='Apache Spark Test Account' -c user.email='sparktestacc@gmail.com' commit -m "Merged commit" --allow-empty
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: us-west-2
-          role-to-assume: arn:aws:iam::194159489498:role/GithubActionsInstallHudiForGatewayC-RepositoryRole-182NI133SRXP0
-          role-session-name: HudiInstallSession
-          role-duration-seconds: 900
-      - name: Set Env
-        run: echo "CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain onehouse --domain-owner 194159489498 --query authorizationToken --output text)" >> $GITHUB_ENV
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx

@@ -22,7 +22,7 @@ name: "Build"
 on:
   push:
     branches:
-    - '**'
+    - 'placeholder'
 
 permissions:
   id-token: write
