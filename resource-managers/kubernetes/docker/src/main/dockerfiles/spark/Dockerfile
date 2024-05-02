@@ -43,11 +43,11 @@ RUN set -ex && \
 COPY jars /opt/spark/jars
 # Copy RELEASE file if exists
 COPY RELEAS[E] /opt/spark/RELEASE
-COPY bin /opt/spark/bin
-COPY sbin /opt/spark/sbin
-COPY kubernetes/dockerfiles/spark/entrypoint.sh /opt/
-COPY kubernetes/dockerfiles/spark/decom.sh /opt/
-COPY data /opt/spark/data
+COPY dist/bin /opt/spark/bin
+COPY dist/sbin /opt/spark/sbin
+COPY dist/kubernetes/dockerfiles/spark/entrypoint.sh /opt/
+COPY dist/kubernetes/dockerfiles/spark/decom.sh /opt/
+COPY dist/data /opt/spark/data
 
 ENV SPARK_HOME /opt/spark
 

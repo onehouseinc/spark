@@ -1,4 +1,4 @@
-name: build-adhoc-jar
+name: build-adhoc-image
 
 on:
   pull_request_review:
