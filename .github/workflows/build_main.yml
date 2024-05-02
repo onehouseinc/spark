@@ -19,20 +19,14 @@
 
 name: "Build"
 
-on:
-  push:
-    branches:
-    - 'placeholder'
-
-permissions:
-  id-token: write
-  contents: read
+#on:
+#  push:
+#    branches:
+#    - '**'
 
 jobs:
   call-build-and-test:
     permissions:
       packages: write
-      id-token: write
-      contents: read
     name: Run
-    uses: ./.github/workflows/build_and_test_onehouse.yml
+    uses: ./.github/workflows/build_and_test.yml
