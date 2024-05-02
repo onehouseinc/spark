@@ -40,7 +40,7 @@ RUN set -ex && \
     chgrp root /etc/passwd && chmod ug+rw /etc/passwd && \
     rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/*
 
-COPY jars /opt/spark/jars
+COPY dist/jars /opt/spark/jars
 # Copy RELEASE file if exists
 COPY RELEAS[E] /opt/spark/RELEASE
 COPY dist/bin /opt/spark/bin
