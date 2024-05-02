@@ -37,4 +37,4 @@ jobs:
           server-username: AWS
           server-password: CODEARTIFACT_AUTH_TOKEN
       - name: Build distribution with Maven
-        run: ./dev/make-distribution.sh -Phive -Phive-thriftserver -Ponehouse -T 4
+        run: ./dev/make-distribution.sh -Phive -Phive-thriftserver -Ponehouse -B -ntp -T 4
