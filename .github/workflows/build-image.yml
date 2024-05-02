@@ -39,4 +39,4 @@ jobs:
       - name: Build distribution with Maven
         run: ./dev/make-distribution.sh -Phive -Phive-thriftserver -Pkubernetes -Ponehouse -B -ntp -T 4
       - name: Build Docker image
-        run: docker build --platform linux/amd64  --build-arg java_image_tag=8-jdk-slim -f ./dist/kubernetes/dockerfiles/spark/Dockerfile -t spark-latest-jdk-8-amd64:${{ inputs.tag }} .
+        run: docker build --platform linux/amd64  --build-arg java_image_tag=11-jre -f ./dist/kubernetes/dockerfiles/spark/Dockerfile -t spark-latest-jdk-8-amd64:${{ inputs.tag }} .
