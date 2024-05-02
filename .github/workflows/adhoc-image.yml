@@ -1,0 +1,31 @@
+name: build-adhoc-image
+
+on:
+  pull_request_review:
+    types: [ submitted ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  generate-tag:
+    if: contains(github.event.review.body, '/push-image')
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Parse tag
+        run: echo "TAG=$(echo ${{ github.event.review.body }} | sed -e s/\\/push-image\ //)" >> $GITHUB_ENV
+      - name: Fail if adhoc image uses reserved tag or is empty
+        if: contains(env.TAG, '-onehouse-') || env.TAG == 'latest' || env.TAG == ''
+        run: exit 1
+      - id: tag
+        run: echo "tag=TAG" >> $GITHUB_OUTPUT
+  build-image:
+    if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, '/push-image')
+    needs: generate-tag
+    uses: ./.github/workflows/build-image.yml
+    secrets: inherit
+    with:
+      tag: ${{needs.generate-tag.outputs.tag}}

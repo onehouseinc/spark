@@ -1,0 +1,42 @@
+name: build-images
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+
+jobs:
+  publish_image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Tag
+        run: echo "${{ inputs.tag }}"
+      - name: Fail if tag not set
+        if: inputs.tag == ''
+        run: exit 1
+      - uses: actions/checkout@v2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: us-west-2
+          role-to-assume: arn:aws:iam::194159489498:role/GithubActionsInstallHudiForGatewayC-RepositoryRole-182NI133SRXP0
+          role-session-name: HudiInstallSession
+          role-duration-seconds: 900
+      - name: Set Env
+        run: echo "CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain onehouse --domain-owner 194159489498 --query authorizationToken --output text)" >> $GITHUB_ENV
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          architecture: x64
+          cache: maven
+          server-id: codeartifact
+          server-username: AWS
+          server-password: CODEARTIFACT_AUTH_TOKEN
+      - name: Build distribution with Maven
+        run: ./dev/make-distribution.sh -Phive -Phive-thriftserver -Pkubernetes -Phadoop-cloud -Ponehouse -B -ntp -T 4
+      - name: Build Docker image
+        run: docker build --platform linux/amd64 --build-arg java_image_tag=11-jre -f ./dist/kubernetes/dockerfiles/spark/Dockerfile -t spark-latest-jdk-11-amd64:${{ inputs.tag }} .

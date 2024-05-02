@@ -19,10 +19,10 @@
 
 name: "Build"
 
-on:
-  push:
-    branches:
-    - '**'
+#on:
+#  push:
+#    branches:
+#    - '**'
 
 jobs:
   call-build-and-test:

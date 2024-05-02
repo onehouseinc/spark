@@ -396,6 +396,17 @@
         <enabled>false</enabled>
       </snapshots>
     </pluginRepository>
+    <pluginRepository>
+      <id>codeartifact</id>
+      <name>codeartifact</name>
+      <url>https://onehouse-194159489498.d.codeartifact.us-west-2.amazonaws.com/maven/onehouse-internal/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
   </pluginRepositories>
   <dependencies>
     <!--

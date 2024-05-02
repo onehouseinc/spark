@@ -32,7 +32,6 @@ RUN set -ex && \
     ln -s /lib /lib64 && \
     apt install -y bash tini libc6 libpam-modules krb5-user libnss3 procps net-tools && \
     mkdir -p /opt/spark && \
-    mkdir -p /opt/spark/examples && \
     mkdir -p /opt/spark/work-dir && \
     touch /opt/spark/RELEASE && \
     rm /bin/sh && \
@@ -41,16 +40,14 @@ RUN set -ex && \
     chgrp root /etc/passwd && chmod ug+rw /etc/passwd && \
     rm -rf /var/cache/apt/* && rm -rf /var/lib/apt/lists/*
 
-COPY jars /opt/spark/jars
+COPY dist/jars /opt/spark/jars
 # Copy RELEASE file if exists
 COPY RELEAS[E] /opt/spark/RELEASE
-COPY bin /opt/spark/bin
-COPY sbin /opt/spark/sbin
-COPY kubernetes/dockerfiles/spark/entrypoint.sh /opt/
-COPY kubernetes/dockerfiles/spark/decom.sh /opt/
-COPY examples /opt/spark/examples
-COPY kubernetes/tests /opt/spark/tests
-COPY data /opt/spark/data
+COPY dist/bin /opt/spark/bin
+COPY dist/sbin /opt/spark/sbin
+COPY dist/kubernetes/dockerfiles/spark/entrypoint.sh /opt/
+COPY dist/kubernetes/dockerfiles/spark/decom.sh /opt/
+COPY dist/data /opt/spark/data
 
 ENV SPARK_HOME /opt/spark
 
