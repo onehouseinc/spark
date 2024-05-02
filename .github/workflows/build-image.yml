@@ -3,18 +3,18 @@ name: build-images
 on:
   workflow_call:
     inputs:
-      version:
+      tag:
         required: true
         type: string
 
 jobs:
-  publish_jar:
+  publish_image:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Version
-        run: echo "${{ inputs.version }}"
-      - name: Fail if version not set
-        if: inputs.version == ''
+      - name: Print Tag
+        run: echo "${{ inputs.tag }}"
+      - name: Fail if tag not set
+        if: inputs.tag == ''
         run: exit 1
       - uses: actions/checkout@v2
       - name: Configure AWS credentials
@@ -37,4 +37,6 @@ jobs:
           server-username: AWS
           server-password: CODEARTIFACT_AUTH_TOKEN
       - name: Build distribution with Maven
-        run: ./dev/make-distribution.sh -Phive -Phive-thriftserver -Ponehouse -B -ntp -T 4
+        run: ./dev/make-distribution.sh -Phive -Phive-thriftserver -Pkubernetes -Ponehouse -B -ntp -T 4
+      - name: Build Docker image
+        run: docker build --platform linux/amd64  --build-arg java_image_tag=8-jdk-slim -f ./dist/kubernetes/dockerfiles/spark/Dockerfile -t spark-latest-jdk-8-amd64:${{ inputs.tag }} .

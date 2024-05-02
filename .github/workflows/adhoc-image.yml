@@ -9,23 +9,23 @@ permissions:
   contents: read
 
 jobs:
-  generate-version:
+  generate-tag:
     if: contains(github.event.review.body, '/push-image')
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
-      - name: Parse version
-        run: echo "VERSION=$(echo ${{ github.event.review.body }} | sed -e s/\\/push-image\ //)" >> $GITHUB_ENV
+      - name: Parse tag
+        run: echo "TAG=$(echo ${{ github.event.review.body }} | sed -e s/\\/push-image\ //)" >> $GITHUB_ENV
       - name: Fail if adhoc image uses reserved tag or is empty
-        if: contains(env.VERSION, '-onehouse-') || env.VERSION == 'latest' || env.VERSION == ''
+        if: contains(env.TAG, '-onehouse-') || env.TAG == 'latest' || env.TAG == ''
         run: exit 1
-      - id: version
-        run: echo "version=$VERSION" >> $GITHUB_OUTPUT
-  publish-jar:
+      - id: tag
+        run: echo "tag=TAG" >> $GITHUB_OUTPUT
+  build-image:
     if: ${{ github.event.issue.pull_request }} && contains(github.event.comment.body, '/push-image')
-    needs: generate-version
+    needs: generate-tag
     uses: ./.github/workflows/build-image.yml
     secrets: inherit
     with:
-      version: ${{needs.generate-version.outputs.version}}
+      tag: ${{needs.generate-tag.outputs.tag}}
